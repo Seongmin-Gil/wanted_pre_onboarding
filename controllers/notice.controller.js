@@ -9,7 +9,7 @@ const {
 
 const postNotice = async (req, res) => {
   await insertNotice(req.body);
-  return res.status(201).json();
+  return res.status(201).json({ message: 'CREATED_NOTICE' });
 };
 
 const putNotice = async (req, res) => {
