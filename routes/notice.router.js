@@ -6,9 +6,14 @@ const {
   deleteNoticeSchema,
 } = require('../middlewares/validator/notice.validator');
 
-const { postNotice, putNotice, deleteNotice } = require('../controllers/notice.controller');
+const {
+  postNotice,
+  putNotice,
+  deleteNotice,
+  getNotice,
+} = require('../controllers/notice.controller');
 
-router.route('/').post(validator(postNoticeSchema), postNotice);
+router.route('/').post(validator(postNoticeSchema), postNotice).get(getNotice);
 router
   .route('/:noticeId')
   .put(validator(putNoticeSchema), transaction(putNotice))
