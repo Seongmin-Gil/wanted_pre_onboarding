@@ -15,12 +15,16 @@ const {
   deleteNotice,
   getNotice,
   getDetailNotice,
+  getSearchNotice,
 } = require('../controllers/notice.controller');
 
 router
   .route('/')
   .post(validator(postNoticeSchema), catchAsync(postNotice))
   .get(catchAsync(getNotice));
+
+router.route('/search').get(catchAsync(getSearchNotice));
+
 router
   .route('/:noticeId')
   .put(validator(putNoticeSchema), transaction(putNotice))
