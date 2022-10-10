@@ -1,9 +1,12 @@
 const router = require('express').Router();
 const { validator, transaction } = require('../middlewares');
+
+const { catchAsync } = require('../utils/ErrorHandler');
+
 const {
   postNoticeSchema,
   putNoticeSchema,
-  deleteNoticeSchema,
+  noticeIdSchema,
 } = require('../middlewares/validator/notice.validator');
 
 const {
@@ -11,12 +14,17 @@ const {
   putNotice,
   deleteNotice,
   getNotice,
+  getDetailNotice,
 } = require('../controllers/notice.controller');
 
-router.route('/').post(validator(postNoticeSchema), postNotice).get(getNotice);
+router
+  .route('/')
+  .post(validator(postNoticeSchema), catchAsync(postNotice))
+  .get(catchAsync(getNotice));
 router
   .route('/:noticeId')
   .put(validator(putNoticeSchema), transaction(putNotice))
-  .delete(validator(deleteNoticeSchema), transaction(deleteNotice));
+  .delete(validator(noticeIdSchema), transaction(deleteNotice))
+  .get(validator(noticeIdSchema), catchAsync(getDetailNotice));
 
 module.exports = router;

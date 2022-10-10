@@ -3,7 +3,7 @@ const CustomError = require('../../utils/CustomError');
 
 const postNoticeSchema = Joi.object({
   body: Joi.object({
-    companyId: Joi.string().uuid().required(),
+    companyId: Joi.string().required(),
     position: Joi.string().required(),
     reward: Joi.number().integer().required(),
     content: Joi.string().required(),
@@ -23,7 +23,7 @@ const putNoticeSchema = Joi.object({
   }).error(new CustomError(404, 'INVALID_INPUT')),
 }).unknown(true);
 
-const deleteNoticeSchema = Joi.object({
+const noticeIdSchema = Joi.object({
   params: Joi.object({
     noticeId: Joi.string().uuid().required().error(new CustomError(404, 'INVALID_INPUT')),
   }),
@@ -32,5 +32,5 @@ const deleteNoticeSchema = Joi.object({
 module.exports = {
   postNoticeSchema,
   putNoticeSchema,
-  deleteNoticeSchema,
+  noticeIdSchema,
 };
