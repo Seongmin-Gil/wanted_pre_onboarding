@@ -1,3 +1,5 @@
+const transaction = require('./transaction');
+
 const validator = schema => {
   return async (req, res, next) => {
     try {
@@ -11,4 +13,5 @@ const validator = schema => {
 
 module.exports = {
   validator,
+  transaction,
 };
