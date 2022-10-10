@@ -3,6 +3,7 @@ const {
   updateNotice,
   deleteNoticeInfo,
   selectnotice,
+  selectDetailNotice,
 } = require('../services/notice.service');
 
 const postNotice = async (req, res) => {
@@ -27,9 +28,19 @@ const getNotice = async (req, res) => {
   return res.status(200).json(noticeInfo);
 };
 
+const getDetailNotice = async (req, res) => {
+  const { noticeId } = req.params;
+  const detailNoticeInfo = await selectDetailNotice(noticeId);
+  detailNoticeInfo['회사가올린다른채용공고'] = JSON.parse(
+    detailNoticeInfo['회사가올린다른채용공고']
+  );
+  return res.status(200).json(detailNoticeInfo);
+};
+
 module.exports = {
   postNotice,
   putNotice,
   deleteNotice,
   getNotice,
+  getDetailNotice,
 };
