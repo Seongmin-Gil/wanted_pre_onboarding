@@ -1,4 +1,4 @@
-const { insertNotice, updateNotice } = require('../services/notice.service');
+const { insertNotice, updateNotice, deleteNoticeInfo } = require('../services/notice.service');
 
 const postNotice = async (req, res) => {
   await insertNotice(req.body);
@@ -11,7 +11,14 @@ const putNotice = async (req, res) => {
   return res.status(201).json({ message: 'COMPLETE_UPDATE' });
 };
 
+const deleteNotice = async (req, res) => {
+  const { noticeId } = req.params;
+  await deleteNoticeInfo(noticeId, req.db);
+  return res.status(200).json({ message: 'DELETED_NOTICE' });
+};
+
 module.exports = {
   postNotice,
   putNotice,
+  deleteNotice,
 };

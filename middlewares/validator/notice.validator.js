@@ -23,7 +23,14 @@ const putNoticeSchema = Joi.object({
   }).error(new CustomError(404, 'INVALID_INPUT')),
 }).unknown(true);
 
+const deleteNoticeSchema = Joi.object({
+  params: Joi.object({
+    noticeId: Joi.string().uuid().required().error(new CustomError(404, 'INVALID_INPUT')),
+  }),
+}).unknown(true);
+
 module.exports = {
   postNoticeSchema,
   putNoticeSchema,
+  deleteNoticeSchema,
 };
