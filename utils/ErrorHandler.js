@@ -1,4 +1,4 @@
-const catchAsync = (func) => {
+const catchAsync = func => {
   return (req, res, next) => {
     func(req, res, next).catch(next);
   };
@@ -6,8 +6,8 @@ const catchAsync = (func) => {
 
 const errorHandler = (err, req, res, next) => {
   const status = err?.status || 500;
-  const message = err?.message || "INTERNAL_SERVER_ERROR";
-  const code = err?.code || "INTERNAL_SERVER_ERROR";
+  const message = err?.message || 'INTERNAL_SERVER_ERROR';
+  const code = err?.code || 'INTERNAL_SERVER_ERROR';
 
   return res.status(status).json({ message, code });
 };

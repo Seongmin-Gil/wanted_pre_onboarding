@@ -1,9 +1,10 @@
 const router = require('express').Router();
-const { validator } = require('../middlewares');
-const { postNoticeSchema } = require('../middlewares/validator/notice.validator');
+const { validator, transaction } = require('../middlewares');
+const { postNoticeSchema, putNoticeSchema } = require('../middlewares/validator/notice.validator');
 
-const { postNotice } = require('../controllers/notice.controller');
+const { postNotice, putNotice } = require('../controllers/notice.controller');
 
 router.route('/').post(validator(postNoticeSchema), postNotice);
+router.route('/:noticeId').put(validator(putNoticeSchema), transaction(putNotice));
 
 module.exports = router;
