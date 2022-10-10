@@ -66,8 +66,25 @@ const deleteNoticeInfo = async (noticeId, db) => {
   return;
 };
 
+const selectnotice = async () => {
+  return await appData.query(`
+    SELECT 
+      n.noticeId AS '채용공고_id',
+      c.companyName AS '회사명',
+      c.country AS '국가',
+      c.region AS '지역',
+      n.position AS '채용포지션',
+      n.reward AS '채용보상금',
+      n.skill AS '사용기술'
+    FROM notice n
+    INNER JOIN company c
+    ON n.companyId = c.companyId
+  `);
+};
+
 module.exports = {
   insertNotice,
   updateNotice,
   deleteNoticeInfo,
+  selectnotice,
 };
