@@ -22,14 +22,17 @@ const updateNotice = async (noticeId, { position, reward, content, skill }, db) 
     .where({ noticeId })
     .setLock('pessimistic_write');
 
-  const [{ valideNotice }] = await appData.query(`
+  const [{ valideNotice }] = await appData.query(
+    `
   SELECT EXISTS(
     SELECT 
         noticeId 
     FROM notice 
-    WHERE noticeId = '${noticeId}'
+    WHERE noticeId = ?
   ) AS valideNotice
-  `);
+  `,
+    [noticeId]
+  );
 
   if (!valideNotice) throw new CustomError(404, 'INVALID_NOTICEID');
 
