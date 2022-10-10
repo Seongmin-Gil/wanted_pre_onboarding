@@ -32,6 +32,7 @@ const getNotice = async (req, res) => {
 const getDetailNotice = async (req, res) => {
   const { noticeId } = req.params;
   const detailNoticeInfo = await selectDetailNotice(noticeId);
+
   detailNoticeInfo['회사가올린다른채용공고'] = JSON.parse(
     detailNoticeInfo['회사가올린다른채용공고']
   );
@@ -40,12 +41,14 @@ const getDetailNotice = async (req, res) => {
 
 const getSearchNotice = async (req, res) => {
   const { text } = req.query;
+
   //검색어 공백 제거
   const option = {
     companyName: text.replace(/(\s*)/g, ''),
     position: text.replace(/(\s*)/g, ''),
     skill: text.replace(/(\s*)/g, ''),
   };
+
   const searchResult = await selectSearchNotice(option);
   return res.status(200).json(searchResult);
 };
