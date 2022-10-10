@@ -3,6 +3,20 @@ const { v4: uuid } = require('uuid');
 const CustomError = require('../utils/CustomError');
 
 const insertNotice = async ({ companyId, position, reward, content, skill }) => {
+  const [{ valideCompany }] = await appData.query(
+    `
+  SELECT EXISTS(
+    SELECT 
+        companyId 
+    FROM company 
+    WHERE companyId = ?
+  ) AS valideCompany
+  `,
+    [companyId]
+  );
+
+  if (!valideCompany) throw new CustomError(404, 'INVALID_COMPANYID');
+
   const noticeId = uuid();
   await appData
     .createQueryBuilder()
