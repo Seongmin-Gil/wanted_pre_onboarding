@@ -4,7 +4,7 @@
   "description": "",
   "main": "test.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "DOTENV_CONFIG_PATH=.env.test jest --setupFiles=dotenv/config",
     "start": "nodemon server.js"
   },
   "keywords": [],
@@ -20,5 +20,9 @@
     "mysql": "^2.18.1",
     "typeorm": "^0.3.10",
     "uuid": "^9.0.0"
+  },
+  "devDependencies": {
+    "jest": "^29.1.2",
+    "supertest": "^6.3.0"
   }
 }
