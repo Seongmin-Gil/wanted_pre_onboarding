@@ -1,10 +1,15 @@
-const app = require("./app");
+const { createApp } = require('./app');
 
-app.set("port", process.env.PORT || 8000);
+const startServer = async () => {
+  const app = createApp();
+  app.set('port', process.env.PORT || 8000);
 
-const server = app.listen(app.get("port"), () => {
-  process.send("ready");
-  console.log(`Server Listening on Port ${app.get("port")}`);
-});
+  const server = app.listen(app.get('port'), () => {
+    process.send('ready');
+    console.log(`Server Listening on Port ${app.get('port')}`);
+  });
 
-server.setTimeout(5000);
+  server.setTimeout(5000);
+};
+
+startServer();
